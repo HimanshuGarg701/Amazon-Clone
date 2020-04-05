@@ -1,0 +1,250 @@
+{
+    "products": [
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	    "description": "",
+	    "quantity":"10"
+      },
+      {
+        "name": "Apple",
+        "price": "$8",
+        "imageUrl": "",
+	    "description": "A juicy fruit",
+	    "quantity":"10"
+      },
+      {
+        "name": "Water Bottle",
+        "price": "$50",
+        "imageUrl": "",
+	    "description": "A steel water bottle for your school",
+	    "quantity":"10"
+      },
+	{
+        "name": "Steel Bottle",
+        "price": "$80",
+        "imageUrl": "",
+	    "description": "A steel bottle to maintain liquid temperature",
+	    "quantity":"10"
+      },
+      {
+        "name": "Math Book",
+        "price": "$40",
+        "imageUrl": "",
+	    "description": "Calculus 1 book with webassign package",
+	    "quantity":"10"
+      },
+      {
+        "name": "English Book",
+        "price": "$50",
+        "imageUrl": "",
+	    "description": "Book for Eng 209 course at SFSU",
+	    "quantity":"10"
+      },
+      {
+        "name": "Leather Jacket",
+        "price": "$100",
+        "imageUrl": "",
+	    "description": "Leather Jacket to help you keep warm",
+	    "quantity":"10"
+      },
+      {
+        "name": "Leather Belt",
+        "price": "$90",
+        "imageUrl": "",
+	    "description": "Belt made of pure leather",
+	    "quantity":"10"
+      },
+      {
+        "name": "Pen",
+        "price": "$5",
+        "imageUrl": "",
+	    "description": "Pilot pen : Best Seller of 2019",
+	    "quantity":"10"
+      },
+      {
+        "name": "Nike Shoes",
+        "price": "$800",
+        "imageUrl": "",
+	    "description": "The all new Nike sports addition. Made for a sport like you.",
+	    "quantity":"10"
+      },
+      {
+        "name": "Helmet",
+        "price": "$80",
+        "imageUrl": "",
+	    "description": "Protect your head from injuries with the toughest helmet.",
+	    "quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	    "description": "",
+	    "quantity":"10"
+      },
+      {
+        "name": "OnePlus 6",
+        "price": "$500",
+        "imageUrl": "",
+	    "description": "The best android phone till now.",
+	    "quantity":"10"
+      },
+      {
+        "name": "Zara Jean",
+        "price": "$120",
+        "imageUrl": "",
+	    "description": "Zara rugged jeans for men.",
+	    "quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+	{
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+	{
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      },
+      {
+        "name": "Apple Iphone 8",
+        "price": "$800",
+        "imageUrl": "",
+	"description": "",
+	"quantity":"10"
+      }
+    ]
+}
+
