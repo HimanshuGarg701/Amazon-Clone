@@ -1,8 +1,10 @@
 package com.example.amazonn
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.amazonn.databinding.ProductAppearanceBinding
 
@@ -22,10 +24,20 @@ class ProductListAdapter(private val products : List<Product>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = products[position]
         holder.bind(product)
+        holder.product = product
     }
 
 
-    class ProductViewHolder(private val binding: ProductAppearanceBinding) : RecyclerView.ViewHolder(binding.root){
+    class ProductViewHolder(private val binding: ProductAppearanceBinding,
+                            var product : Product?=null) : RecyclerView.ViewHolder(binding.root){
+        init{
+            binding.root.setOnClickListener {
+                val intent = Intent(binding.root.context, ProductDescription::class.java)
+                intent.putExtra("PRODUCT", product)
+                binding.root.context.startActivity(intent)
+            }
+        }
+
          fun bind(product : Product){
              binding.productName.text = product.name
              binding.productPrice.text = product.price
