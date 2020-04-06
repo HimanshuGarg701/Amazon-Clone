@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.amazonn.databinding.ProductAppearanceBinding
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.product_appearance.view.*
 
 class ProductListAdapter(private val products : List<Product>) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
 
@@ -25,6 +27,11 @@ class ProductListAdapter(private val products : List<Product>) : RecyclerView.Ad
         val product = products[position]
         holder.bind(product)
         holder.product = product
+        if(!product.imageURL.equals(""))
+            Picasso.get().load(product.imageURL).into(holder.itemView.productImage)
+        else{
+            holder.itemView.productImage.setImageResource(R.drawable.no_pic_available)
+        }
     }
 
 

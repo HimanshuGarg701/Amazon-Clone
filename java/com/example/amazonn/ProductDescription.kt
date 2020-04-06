@@ -1,11 +1,13 @@
 package com.example.amazonn
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.amazonn.databinding.ActivityProductDescriptionBinding
-import kotlinx.android.synthetic.main.activity_product_description.*
+import com.squareup.picasso.Picasso
+
 
 class ProductDescription : AppCompatActivity() {
 
@@ -22,6 +24,14 @@ class ProductDescription : AppCompatActivity() {
     private fun setValues(product : Product){
         binding.productDescriptionName.text = product.name
         binding.productDescriptionPrice.text = product.price
+        val imageView =
+            findViewById<ImageView>(R.id.productDescriptionImage)
+        //val productImageView = (ImageView) findViewById(R.id.productImage)
+        if(!product.imageURL.equals(""))
+            Picasso.get().load(product.imageURL).into(imageView)
+        else{
+            binding.productDescriptionImage.setImageResource(R.drawable.no_pic_available)
+        }
     }
 }
 
