@@ -25,7 +25,7 @@ class ProductDescription : AppCompatActivity() {
             Toast.makeText(this, "Product added to Cart", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, ShoppingCart::class.java)
             intent.putExtra("PRODUCT", product)
-            startActivity(intent)
+            //startActivity(intent)
         }
     }
 
