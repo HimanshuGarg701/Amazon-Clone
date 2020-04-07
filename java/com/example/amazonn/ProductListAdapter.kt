@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.product_appearance.view.*
 
 class ProductListAdapter(private val products : List<Product>) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
 
-    //val products = ArrayList<Product>()
     override fun getItemCount(): Int {
         return products.size
     }
@@ -27,11 +26,6 @@ class ProductListAdapter(private val products : List<Product>) : RecyclerView.Ad
         val product = products[position]
         holder.bind(product)
         holder.product = product
-        if(!product.imageURL.equals(""))
-            Picasso.get().load(product.imageURL).into(holder.itemView.productImage)
-        else{
-            holder.itemView.productImage.setImageResource(R.drawable.no_pic_available)
-        }
     }
 
 
@@ -48,6 +42,11 @@ class ProductListAdapter(private val products : List<Product>) : RecyclerView.Ad
          fun bind(product : Product){
              binding.productName.text = product.name
              binding.productPrice.text = product.price
+             if(!product.imageURL.equals(""))
+                 Picasso.get().load(product.imageURL).into(binding.productImage)
+             else{
+                 binding.productImage.setImageResource(R.drawable.no_pic_available)
+             }
          }
     }
 }

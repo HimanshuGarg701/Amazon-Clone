@@ -6,4 +6,7 @@
     <string name="shopping_cart">Shopping Cart</string>
     <string name="search">search</string>
     <string name="product_description">Product Description</string>
+    <string name="product_description_data">Product Description Data</string>
+    <string name="buy_button">BUY</string>
+    <string name="search_here">Search Here</string>
 </resources>

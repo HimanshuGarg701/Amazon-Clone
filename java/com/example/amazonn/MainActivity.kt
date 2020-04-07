@@ -2,6 +2,7 @@ package com.example.amazonn
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -69,11 +70,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.shoppingCart ->{
-                val intent = Intent(this, ShoppingCart::class.java)
-                startActivity(intent)
+        try{
+            when(item.itemId){
+                R.id.shoppingCart ->{
+                    val intent = Intent(this, ShoppingCart::class.java)
+                    startActivity(intent)
+                }
             }
+        }catch(e : Exception){
+            Log.d("FailedToLoadMenu", e.message)
         }
         return super.onOptionsItemSelected(item)
     }
