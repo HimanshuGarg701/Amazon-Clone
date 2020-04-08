@@ -54,13 +54,14 @@ class MainActivity : AppCompatActivity() {
             for (i in 0 until jsonObjects.length()) {
                 val products = jsonObjects.getJSONObject(i)
 
+                val id = products.getInt("id")
                 val name = products.getString("name")
                 val price = products.getString("price")
                 val quantity = products.getString("quantity")
                 val imageUrl = products.getString("imageUrl")
                 val description = products.getString("description")
 
-                val product = Product(name, price, quantity, imageUrl, description)
+                val product = Product(id, name, price, quantity, imageUrl, description)
                 list.add(product)
             }
         } catch (e: JSONException) {

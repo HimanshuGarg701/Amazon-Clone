@@ -1,4 +1,7 @@
 package com.example.amazonn
 
-class ShoppingCartViewModel {
+import androidx.lifecycle.ViewModel
+
+class ShoppingCartViewModel : ViewModel() {
+
 }

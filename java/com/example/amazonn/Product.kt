@@ -2,18 +2,34 @@ package com.example.amazonn
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-
+@Entity(tableName="product")
 data class Product(
+    @PrimaryKey
+    val id : Int,
+
+    @ColumnInfo(name="product_name")
     val name: String?,
+
+    @ColumnInfo(name="product_price")
     val price:String?,
+
+    @ColumnInfo(name="product_quantity")
     val quantity : String?,
+
+    @ColumnInfo(name="product_image")
     val imageURL : String?,
+
+    @ColumnInfo(name="product_description")
     val description:String?
     ) : Parcelable
 {
 
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -24,6 +40,7 @@ data class Product(
 
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
         parcel.writeString(name)
         parcel.writeString(price)
         parcel.writeString(quantity)
