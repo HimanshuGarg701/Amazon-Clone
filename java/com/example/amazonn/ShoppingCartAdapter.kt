@@ -1,5 +1,6 @@
 package com.example.amazonn
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.A
     }
 
     override fun getItemCount(): Int {
+        Log.d("SizeCheck", products.size.toString())
         return products.size
     }
 

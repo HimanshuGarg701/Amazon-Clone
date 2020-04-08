@@ -16,7 +16,7 @@ interface CartProductDao {
     fun delete(product : Product)
 
     @Query("SELECT * FROM product")
-    fun getAllProducts() : LiveData<List<Product>>?
+    fun getAllProducts() : List<Product>
 
     @Query("DELETE FROM product")
     fun deleteAll()
