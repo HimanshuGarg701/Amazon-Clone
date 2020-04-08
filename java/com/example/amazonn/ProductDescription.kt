@@ -1,22 +1,27 @@
 package com.example.amazonn
 
 
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.amazonn.databinding.ActivityProductDescriptionBinding
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 
 
 class ProductDescription : AppCompatActivity() {
 
     private lateinit var binding : ActivityProductDescriptionBinding
+    private val job = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
+    lateinit var cartDao : CartProductDao
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_description)
@@ -26,7 +31,7 @@ class ProductDescription : AppCompatActivity() {
 
         binding.buyButton.setOnClickListener {
             Toast.makeText(this, "Product added to Cart", Toast.LENGTH_SHORT).show()
-            //addProduct(product)
+            addProduct(product)
         }
     }
 
@@ -46,6 +51,29 @@ class ProductDescription : AppCompatActivity() {
         }
     }
 
+    private fun addProduct(product : Product){
+        val thisApplication = requireNotNull(this).application
+        uiScope.launch {
+            insert(thisApplication, product)
+        }
+    }
+
+    private suspend fun insert(thisApplication : Application, product:Product){
+        withContext(Dispatchers.IO) {
+            Log.d("Leaving","Going to get the instance")
+            cartDao = ShoppingCartDatabase.getInstance(thisApplication).cartProductDao
+            Log.d("Leaving", "Coming back with the instance")
+            if(cartDao.getProduct(product.id)!=null){
+                // Do Nothing
+            }else {
+                cartDao.insert(product)
+            }
+        }
+    }
+
+    fun getDao() : CartProductDao{
+        return cartDao
+    }
 }
 
 

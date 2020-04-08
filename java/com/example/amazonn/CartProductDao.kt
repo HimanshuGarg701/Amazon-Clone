@@ -1,5 +1,6 @@
 package com.example.amazonn
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -14,9 +15,12 @@ interface CartProductDao {
     @Delete
     fun delete(product : Product)
 
+    @Query("SELECT * FROM product")
+    fun getAllProducts() : LiveData<List<Product>>?
+
     @Query("DELETE FROM product")
     fun deleteAll()
 
-    @Query("SELECT * FROM product ORDER BY id")
-    fun getAllProducts()
+    @Query("SELECT * FROM product WHERE id = :key")
+    fun getProduct(key : Int) : Product?
 }

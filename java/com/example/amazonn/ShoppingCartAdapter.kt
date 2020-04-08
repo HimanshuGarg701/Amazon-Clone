@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.amazonn.databinding.ProductAppearanceBinding
 import com.squareup.picasso.Picasso
 
-class ShoppingCartAdapter(val products : List<Product>) : RecyclerView.Adapter<ShoppingCartAdapter.ShoppingCartViewHolder>() {
+class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.Adapter<ShoppingCartAdapter.ShoppingCartViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingCartViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ProductAppearanceBinding.inflate(layoutInflater, parent, false)

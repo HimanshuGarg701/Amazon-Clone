@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         val adapter = ProductListAdapter(products)
         binding.recyclerProducts.adapter = adapter
 
-
     }
 
     private fun loadJSONFromAsset(): String {
