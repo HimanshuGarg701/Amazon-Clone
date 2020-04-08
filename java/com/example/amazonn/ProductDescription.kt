@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.amazonn.databinding.ActivityProductDescriptionBinding
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 
 
 class ProductDescription : AppCompatActivity() {
@@ -23,9 +26,7 @@ class ProductDescription : AppCompatActivity() {
 
         binding.buyButton.setOnClickListener {
             Toast.makeText(this, "Product added to Cart", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, ShoppingCart::class.java)
-            intent.putExtra("PRODUCT", product)
-            //startActivity(intent)
+            //addProduct(product)
         }
     }
 
@@ -44,6 +45,7 @@ class ProductDescription : AppCompatActivity() {
             binding.productDescriptionImage.setImageResource(R.drawable.no_pic_available)
         }
     }
+
 }
 
 
