@@ -10,4 +10,9 @@
     <string name="buy_button">BUY</string>
     <string name="search_here">Search Here</string>
     <string name="remove_button">REMOVE</string>
+    <string name="reviews">Reviews</string>
+    <string name="review_heading">Review Heading</string>
+    <string name="write_review">Write Review Here</string>
+    <string name="submit_review">SUBMIT</string>
+    <string name="add_review">ADD REVIEW</string>
 </resources>

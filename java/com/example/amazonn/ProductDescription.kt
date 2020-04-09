@@ -33,6 +33,11 @@ class ProductDescription : AppCompatActivity() {
             Toast.makeText(this, "Product added to Cart", Toast.LENGTH_SHORT).show()
             addProduct(product)
         }
+
+        binding.addReviewButton.setOnClickListener {
+            val intent = Intent(this, AddReview::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setValues(product : Product){

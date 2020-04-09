@@ -14,7 +14,7 @@ import kotlinx.coroutines.*
 class ShoppingCart : AppCompatActivity() {
 
     private lateinit var binding : ActivityShoppingCartBinding
-    private lateinit var cartDao : CartProductDao
+    lateinit var cartDao : CartProductDao
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_cart)

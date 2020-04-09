@@ -38,3 +38,4 @@ class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.A
         }
     }
 }
+
