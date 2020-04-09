@@ -16,7 +16,7 @@ interface ReviewDao {
     fun delete(review : Review)
 
     @Query("SELECT * FROM review")
-    fun getAllProducts() : LiveData<List<Review>>
+    fun getAllReviews() : LiveData<List<Review>>
 
     @Query("DELETE FROM review")
     fun deleteAll()

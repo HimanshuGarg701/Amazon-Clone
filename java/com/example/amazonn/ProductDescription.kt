@@ -10,8 +10,12 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.amazonn.databinding.ActivityProductDescriptionBinding
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_product_description.*
 import kotlinx.coroutines.*
 
 
@@ -38,6 +42,8 @@ class ProductDescription : AppCompatActivity() {
             val intent = Intent(this, AddReview::class.java)
             startActivity(intent)
         }
+
+        loadReviews()
     }
 
     private fun setValues(product : Product){
@@ -74,6 +80,20 @@ class ProductDescription : AppCompatActivity() {
                 cartDao.insert(product)
             }
         }
+    }
+
+    private fun loadReviews(){
+        val application = requireNotNull(this).application
+        val reviewsDao = ReviewDatabase.getInstance(application).reviewDao
+
+        val reviewViewModelFactory = ReviewsViewModelFactory(reviewsDao, application)
+        val reviewViewModel = ViewModelProviders.of(this, reviewViewModelFactory).get(ReviewsViewModel::class.java)
+
+        reviewViewModel.reviews.observe(this, Observer{
+            val reviewsList = it as ArrayList<Review>
+            val adapter = ReviewAdapter(reviewsList)
+            recyclerReviews.adapter = adapter
+        })
     }
 }
 

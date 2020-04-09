@@ -1,7 +1,9 @@
 package com.example.amazonn
 
 import android.app.Application
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.amazonn.databinding.ActivityReviewsBinding
@@ -23,6 +25,9 @@ class AddReview : AppCompatActivity() {
         val review = Review(reviewHeading, reviewData)
         binding.submitReview.setOnClickListener {
             insertData(review, application)
+            Toast.makeText(this, "Review Added", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ProductDescription::class.java)
+            startActivity(intent)
         }
     }
 
