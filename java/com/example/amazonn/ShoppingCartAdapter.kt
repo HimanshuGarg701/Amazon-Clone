@@ -8,6 +8,7 @@ import com.example.amazonn.databinding.ShoppingCartItemBinding
 import com.squareup.picasso.Picasso
 
 class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.Adapter<ShoppingCartAdapter.ShoppingCartViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingCartViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ShoppingCartItemBinding.inflate(layoutInflater, parent, false)
@@ -26,9 +27,6 @@ class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.A
 
     class ShoppingCartViewHolder(private val binding: ShoppingCartItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        init{
-            
-        }
         fun bind(product : Product){
             binding.productName.text = product.name
             binding.productPrice.text = product.price

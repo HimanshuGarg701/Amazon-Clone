@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.example.amazonn.databinding.ActivityShoppingCartBinding
 import kotlinx.android.synthetic.main.activity_shopping_cart.*
 import kotlinx.coroutines.*
 
 class ShoppingCart : AppCompatActivity() {
-
-    private val job = Job()
-    private val scope = CoroutineScope(Dispatchers.Main + job)
 
     private lateinit var binding : ActivityShoppingCartBinding
     private lateinit var cartDao : CartProductDao
@@ -22,29 +21,26 @@ class ShoppingCart : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shopping_cart)
         binding.lifecycleOwner = this
 
+        loadData()
+    }
 
+
+    private fun loadData(){
+        val application = requireNotNull(this).application
         try {
-            cartDao = ShoppingCartDatabase.getInstance(requireNotNull(this).application).cartProductDao
+            cartDao = ShoppingCartDatabase.getInstance(application).cartProductDao
         }catch(e : Exception){
             Log.d("CreatingDao", e.message!!)
         }
 
+        val cartViewModelFactory = CartViewModelFactory(cartDao, application)
+        val cartViewModel = ViewModelProviders.of(this, cartViewModelFactory).get(ShoppingCartViewModel::class.java)
         var products = ArrayList<Product>()
 
-        scope.launch {
-            withContext(Dispatchers.IO){
-                try {
-                    products = cartDao.getAllProducts() as ArrayList<Product>
-                    val adapter = ShoppingCartAdapter(products)
-                    recyclerShoppingCart.adapter = adapter
-                    Log.d("CreatingDao", "Failed in the background thread ${products.toString()}")
-                }catch(e : Exception){
-                    Log.d("CreatingDao", "Failed to fetch ${e.message}")
-                }
-            }
-        }
+        cartViewModel.products.observe(this, Observer {
+            products = it as ArrayList<Product>
+            val adapter = ShoppingCartAdapter(products)
+            recyclerShoppingCart.adapter = adapter
+        })
     }
-
-
-
 }
