@@ -70,10 +70,6 @@ class ProductDescription : AppCompatActivity() {
             }
         }
     }
-
-    fun getDao() : CartProductDao{
-        return cartDao
-    }
 }
 
 

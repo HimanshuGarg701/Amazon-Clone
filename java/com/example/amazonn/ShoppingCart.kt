@@ -12,7 +12,7 @@ import kotlinx.coroutines.*
 class ShoppingCart : AppCompatActivity() {
 
     private val job = Job()
-    val scope = CoroutineScope(Dispatchers.Main + job)
+    private val scope = CoroutineScope(Dispatchers.Main + job)
 
     private lateinit var binding : ActivityShoppingCartBinding
     private lateinit var cartDao : CartProductDao
@@ -22,15 +22,13 @@ class ShoppingCart : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shopping_cart)
         binding.lifecycleOwner = this
 
-        Log.d("CreatingDao", "Before Creation")
+
         try {
             cartDao = ShoppingCartDatabase.getInstance(requireNotNull(this).application).cartProductDao
-            Log.d("CreatingDao", "Inside try ${cartDao.toString()}")
         }catch(e : Exception){
-            Log.d("CreatingDao", "Error It Is")
-            Log.d("CreatingDao", "This is ${cartDao.toString()}")
             Log.d("CreatingDao", e.message!!)
         }
+
         var products = ArrayList<Product>()
 
         scope.launch {
