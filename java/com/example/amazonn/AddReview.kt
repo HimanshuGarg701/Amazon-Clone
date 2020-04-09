@@ -3,6 +3,7 @@ package com.example.amazonn
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -18,24 +19,30 @@ class AddReview : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reviews)
 
+        binding.submitReview.setOnClickListener {
+            insertReviewToDatabase()
+
+        }
+    }
+
+    private fun insertReviewToDatabase(){
+        val application = requireNotNull(this).application
         val reviewHeading = binding.reviewHeading.text.toString()
         val reviewData = binding.reviewData.text.toString()
-
-        val application = requireNotNull(this).application
         val review = Review(reviewHeading, reviewData)
-        binding.submitReview.setOnClickListener {
-            insertData(review, application)
-            Toast.makeText(this, "Review Added", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, ProductDescription::class.java)
-            startActivity(intent)
-        }
+        insertData(review, application)
+        Toast.makeText(this, "Review Added", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun insertData(review : Review, application : Application){
         scope.launch {
             withContext(Dispatchers.IO){
+                Log.d("CheckInsertion", "Check Review ${review.toString()}")
                 val reviewDao = ReviewDatabase.getInstance(application).reviewDao
                 reviewDao.insert(review)
+                Log.d("CheckInsertion", reviewDao.getReview(review.heading).toString())
             }
         }
     }

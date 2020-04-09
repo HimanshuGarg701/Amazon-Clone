@@ -91,6 +91,7 @@ class ProductDescription : AppCompatActivity() {
 
         reviewViewModel.reviews.observe(this, Observer{
             val reviewsList = it as ArrayList<Review>
+            Log.d("ReviewsList", reviewsList.toString())
             val adapter = ReviewAdapter(reviewsList)
             recyclerReviews.adapter = adapter
         })
