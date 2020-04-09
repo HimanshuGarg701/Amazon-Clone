@@ -21,6 +21,4 @@ interface ReviewDao {
     @Query("DELETE FROM review")
     fun deleteAll()
 
-    @Query("SELECT * FROM review WHERE id = :key")
-    fun getProduct(key : Int) : Review?
 }
