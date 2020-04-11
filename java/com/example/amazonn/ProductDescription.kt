@@ -24,7 +24,7 @@ class ProductDescription : AppCompatActivity() {
     private lateinit var binding : ActivityProductDescriptionBinding
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
-    lateinit var cartDao : CartProductDao
+    private lateinit var cartDao : CartProductDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class ProductDescription : AppCompatActivity() {
 
         binding.buyButton.setOnClickListener {
             Toast.makeText(this, "Product added to Cart", Toast.LENGTH_SHORT).show()
-            addProduct(product)
+            addProducttoDatabase(product)
         }
 
         binding.addReviewButton.setOnClickListener {
@@ -62,7 +62,7 @@ class ProductDescription : AppCompatActivity() {
         }
     }
 
-    private fun addProduct(product : Product){
+    private fun addProducttoDatabase(product : Product){
         val thisApplication = requireNotNull(this).application
         uiScope.launch {
             insert(thisApplication, product)
