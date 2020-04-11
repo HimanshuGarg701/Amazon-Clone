@@ -5,6 +5,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlin.collections.ArrayList
 
 @Entity(tableName="product")
 data class Product(
@@ -24,7 +25,10 @@ data class Product(
     val imageURL : String?,
 
     @ColumnInfo(name="product_description")
-    val description:String?
+    val description:String?,
+
+    @ColumnInfo(name="product_reviews")
+    val reviewsOfProduct : ArrayList<Review>? = ArrayList<Review>()
     ) : Parcelable
 {
 
@@ -34,7 +38,8 @@ data class Product(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString()
+        parcel.readString(),
+        readArrayList(ArrayList<Review>()) as ArrayList<Review>?
     ) {
     }
 
@@ -46,6 +51,7 @@ data class Product(
         parcel.writeString(quantity)
         parcel.writeString(imageURL)
         parcel.writeString(description)
+        parcel.writeList(reviewsOfProduct as List<*>?)
     }
 
     override fun describeContents(): Int {
@@ -62,3 +68,8 @@ data class Product(
         }
     }
 }
+
+private fun readArrayList(arrayList: ArrayList<Review>): ArrayList<*>? {
+    return arrayList
+}
+

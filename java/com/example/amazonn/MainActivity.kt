@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 val imageUrl = products.getString("imageUrl")
                 val description = products.getString("description")
 
-                val product = Product(id, name, price, quantity, imageUrl, description)
+                val product = Product(id, name, price, quantity, imageUrl, description, ArrayList<Review>())
                 list.add(product)
             }
         } catch (e: JSONException) {
