@@ -14,6 +14,7 @@ import kotlinx.coroutines.*
 class ShoppingCart : AppCompatActivity() {
 
     var products = ArrayList<Product>()
+    var totalPrice = 0.0
     private lateinit var binding : ActivityShoppingCartBinding
     lateinit var cartDao : CartProductDao
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,11 +24,11 @@ class ShoppingCart : AppCompatActivity() {
         binding.lifecycleOwner = this
 
 
-        loadData(null)
+        loadData()
     }
 
 
-     fun loadData(product : Product?){
+     private fun loadData(){
         val application = requireNotNull(this).application
         try {
             cartDao = ShoppingCartDatabase.getInstance(application).cartProductDao

@@ -37,9 +37,6 @@ class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.A
             else{
                 binding.productImage.setImageResource(R.drawable.no_pic_available)
             }
-
-            binding.removeButton.setOnClickListener {
-            }
         }
     }
 }

@@ -23,4 +23,7 @@ interface CartProductDao {
 
     @Query("SELECT * FROM product WHERE id = :key")
     fun getProduct(key : Int) : Product?
+
+    @Query("SELECT product_price from product")
+    fun getPrice() : Double?
 }
