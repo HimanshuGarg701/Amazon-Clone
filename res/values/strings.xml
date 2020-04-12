@@ -15,4 +15,6 @@
     <string name="write_review">Write Review Here</string>
     <string name="submit_review">SUBMIT</string>
     <string name="add_review">ADD REVIEW</string>
+    <string name="total_price">Total Price</string>
+    <string name="checkout">CheckOut</string>
 </resources>

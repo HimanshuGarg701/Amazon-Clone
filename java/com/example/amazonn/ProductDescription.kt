@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.amazonn.databinding.ActivityProductDescriptionBinding
 import com.squareup.picasso.Picasso
@@ -47,7 +46,7 @@ class ProductDescription : AppCompatActivity() {
 
     private fun setValues(product : Product){
         binding.productDescriptionName.text = product.name
-        binding.productDescriptionPrice.text = product.price
+        binding.productDescriptionPrice.text = "\$ ${product.price}"
         binding.productDescriptionData.text = product.description
         val imageView = binding.productDescriptionImage
         try {

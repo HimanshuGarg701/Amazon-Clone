@@ -41,7 +41,7 @@ class ProductListAdapter(private val products : List<Product>) : RecyclerView.Ad
 
          fun bind(product : Product){
              binding.productName.text = product.name
-             binding.productPrice.text = product.price
+             binding.productPrice.text = "\$ ${product.price}"
              if(!product.imageURL.equals(""))
                  Picasso.get().load(product.imageURL).into(binding.productImage)
              else{

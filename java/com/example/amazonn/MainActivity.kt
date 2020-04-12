@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
                 val id = products.getInt("id")
                 val name = products.getString("name")
-                val price = products.getString("price")
+                val price = products.getDouble("price")
                 val quantity = products.getString("quantity")
                 val imageUrl = products.getString("imageUrl")
                 val description = products.getString("description")

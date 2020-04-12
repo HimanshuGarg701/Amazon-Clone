@@ -15,7 +15,7 @@ data class Product(
     val name: String?,
 
     @ColumnInfo(name="product_price")
-    val price:String?,
+    val price:Double,
 
     @ColumnInfo(name="product_quantity")
     val quantity : String?,
@@ -31,7 +31,7 @@ data class Product(
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
-        parcel.readString(),
+        parcel.readDouble(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
@@ -42,7 +42,7 @@ data class Product(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeString(name)
-        parcel.writeString(price)
+        parcel.writeDouble(price)
         parcel.writeString(quantity)
         parcel.writeString(imageURL)
         parcel.writeString(description)

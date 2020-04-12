@@ -13,6 +13,7 @@ import kotlinx.coroutines.*
 
 class ShoppingCart : AppCompatActivity() {
 
+    var products = ArrayList<Product>()
     private lateinit var binding : ActivityShoppingCartBinding
     lateinit var cartDao : CartProductDao
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,11 +22,12 @@ class ShoppingCart : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shopping_cart)
         binding.lifecycleOwner = this
 
-        loadData()
+
+        loadData(null)
     }
 
 
-    private fun loadData(){
+     fun loadData(product : Product?){
         val application = requireNotNull(this).application
         try {
             cartDao = ShoppingCartDatabase.getInstance(application).cartProductDao
@@ -35,7 +37,6 @@ class ShoppingCart : AppCompatActivity() {
 
         val cartViewModelFactory = CartViewModelFactory(cartDao, application)
         val cartViewModel = ViewModelProviders.of(this, cartViewModelFactory).get(ShoppingCartViewModel::class.java)
-        var products = ArrayList<Product>()
 
         cartViewModel.products.observe(this, Observer {
             products = it as ArrayList<Product>
@@ -43,4 +44,5 @@ class ShoppingCart : AppCompatActivity() {
             recyclerShoppingCart.adapter = adapter
         })
     }
+
 }

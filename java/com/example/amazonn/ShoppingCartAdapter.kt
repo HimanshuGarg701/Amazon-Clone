@@ -4,10 +4,10 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.amazonn.databinding.ShoppingCartItemBinding
 import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.Adapter<ShoppingCartAdapter.ShoppingCartViewHolder>() {
 
@@ -31,7 +31,7 @@ class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.A
 
         fun bind(product : Product){
             binding.productName.text = product.name
-            binding.productPrice.text = product.price
+            binding.productPrice.text = "\$ ${product.price}"
             if(!product.imageURL.equals(""))
                 Picasso.get().load(product.imageURL).into(binding.productImage)
             else{
@@ -39,9 +39,6 @@ class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.A
             }
 
             binding.removeButton.setOnClickListener {
-                val intent = Intent(binding.root.context, ShoppingCart::class.java)
-                intent.putExtra("DeleteProduct", product)
-                binding.root.context.startActivity(intent)
             }
         }
     }
