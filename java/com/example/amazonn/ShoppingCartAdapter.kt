@@ -1,8 +1,10 @@
 package com.example.amazonn
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.amazonn.databinding.ShoppingCartItemBinding
 import com.squareup.picasso.Picasso
@@ -34,6 +36,12 @@ class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.A
                 Picasso.get().load(product.imageURL).into(binding.productImage)
             else{
                 binding.productImage.setImageResource(R.drawable.no_pic_available)
+            }
+
+            binding.removeButton.setOnClickListener {
+                val intent = Intent(binding.root.context, ShoppingCart::class.java)
+                intent.putExtra("DeleteProduct", product)
+                binding.root.context.startActivity(intent)
             }
         }
     }

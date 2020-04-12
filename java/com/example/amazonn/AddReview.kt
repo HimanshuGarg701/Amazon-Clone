@@ -19,17 +19,19 @@ class AddReview : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reviews)
 
+        val product = intent.getParcelableExtra<Product>("PRODUCT")
         binding.submitReview.setOnClickListener {
-            insertReviewToDatabase()
+            insertReviewToDatabase(product.id)
 
         }
     }
 
-    private fun insertReviewToDatabase(){
+    private fun insertReviewToDatabase(id : Int){
         val application = requireNotNull(this).application
         val reviewHeading = binding.reviewHeading.text.toString()
         val reviewData = binding.reviewData.text.toString()
-        val review = Review(reviewHeading, reviewData)
+        val review = Review(reviewHeading, reviewData, id)
+        Log.d("REVIEWID", id.toString())
         insertData(review, application)
         Toast.makeText(this, "Review Added", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
