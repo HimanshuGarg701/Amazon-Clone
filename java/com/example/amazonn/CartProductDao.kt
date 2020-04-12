@@ -25,5 +25,5 @@ interface CartProductDao {
     fun getProduct(key : Int) : Product?
 
     @Query("SELECT product_price from product")
-    fun getPrice() : Double?
+    fun getPrice() : LiveData<List<Double>>?
 }

@@ -14,7 +14,7 @@ import kotlinx.coroutines.*
 class ShoppingCart : AppCompatActivity() {
 
     var products = ArrayList<Product>()
-    var totalPrice = 0.0
+    var total = ArrayList<Double>()
     private lateinit var binding : ActivityShoppingCartBinding
     lateinit var cartDao : CartProductDao
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +44,16 @@ class ShoppingCart : AppCompatActivity() {
             val adapter = ShoppingCartAdapter(products)
             recyclerShoppingCart.adapter = adapter
         })
+
+         cartViewModel.total?.observe(this, Observer {
+             total = it as ArrayList<Double>
+             var totalCost = 0.0
+             for(i in total){
+                 totalCost += i
+             }
+
+             totalPrice.text = "\$ ${totalCost}"
+         })
     }
 
 }

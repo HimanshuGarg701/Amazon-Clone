@@ -10,4 +10,6 @@ class ShoppingCartViewModel(
 
     val products = cartDao.getAllProducts()
 
+    val total = cartDao.getPrice()
+
 }
