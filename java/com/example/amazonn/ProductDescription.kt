@@ -30,10 +30,14 @@ class ProductDescription : AppCompatActivity() {
         val product = intent.getParcelableExtra<Product>("PRODUCT")
         setValues(product!!)
 
+        val deleteProduct = intent.getParcelableExtra<Product>("DELETE_PRODUCT")
+
         binding.buyButton.setOnClickListener {
             Toast.makeText(this, "Product added to Cart", Toast.LENGTH_SHORT).show()
             addProducttoDatabase(product)
         }
+
+        deleteProductFromDatabase(deleteProduct)
 
         binding.addReviewButton.setOnClickListener {
             val intent = Intent(this, AddReview::class.java)
@@ -76,6 +80,22 @@ class ProductDescription : AppCompatActivity() {
                 // Do Nothing
             }else {
                 cartDao.insert(product)
+            }
+        }
+    }
+
+    private fun deleteProductFromDatabase(product : Product?){
+        val thisApplication = requireNotNull(this).application
+        uiScope.launch {
+            delete(thisApplication, product)
+        }
+    }
+
+    private suspend fun delete(thisApplication : Application, product : Product?){
+        withContext(Dispatchers.IO){
+            cartDao = ShoppingCartDatabase.getInstance(thisApplication).cartProductDao
+            if(product!=null){
+                cartDao.delete(product)
             }
         }
     }

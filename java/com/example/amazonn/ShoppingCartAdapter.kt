@@ -37,6 +37,17 @@ class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.A
             else{
                 binding.productImage.setImageResource(R.drawable.no_pic_available)
             }
+
+            try {
+                binding.removeButton.setOnClickListener {
+                    val intent = Intent(binding.root.context, ProductDescription::class.java)
+                    intent.putExtra("PRODUCT", product)
+                    intent.putExtra("DELETE_PRODUCT", product)
+                    binding.root.context.startActivity(intent)
+                }
+            }catch(e:Exception){
+                Log.d("FailedNewActivity", e.message)
+            }
         }
     }
 }
