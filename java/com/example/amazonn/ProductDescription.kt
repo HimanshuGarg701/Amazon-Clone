@@ -39,13 +39,13 @@ class ProductDescription : AppCompatActivity() {
 
         deleteProductFromDatabase(deleteProduct)
 
+        //loadReviews(product)
+
         binding.addReviewButton.setOnClickListener {
             val intent = Intent(this, AddReview::class.java)
             intent.putExtra("PRODUCT", product)
             startActivity(intent)
         }
-
-        loadReviews()
     }
 
     private fun setValues(product : Product){
@@ -76,10 +76,14 @@ class ProductDescription : AppCompatActivity() {
             Log.d("Leaving","Going to get the instance")
             cartDao = ShoppingCartDatabase.getInstance(thisApplication).cartProductDao
             Log.d("Leaving", "Coming back with the instance")
+            try{
             if(cartDao.getProduct(product.id)!=null){
                 // Do Nothing
             }else {
                 cartDao.insert(product)
+            }
+            }catch(e : Exception){
+                Log.d("BuyError", e.message)
             }
         }
     }
@@ -100,19 +104,23 @@ class ProductDescription : AppCompatActivity() {
         }
     }
 
-    private fun loadReviews(){
+    private fun loadReviews(product : Product){
         val application = requireNotNull(this).application
-        val reviewsDao = ReviewDatabase.getInstance(application).reviewDao
-
-        val reviewViewModelFactory = ReviewsViewModelFactory(reviewsDao, application)
-        val reviewViewModel = ViewModelProviders.of(this, reviewViewModelFactory).get(ReviewsViewModel::class.java)
-
-        reviewViewModel.reviews.observe(this, Observer{
-            val reviewsList = it as ArrayList<Review>
-            Log.d("ReviewsList", reviewsList.toString())
-            val adapter = ReviewAdapter(reviewsList)
-            recyclerReviews.adapter = adapter
-        })
+                val reviewsDao = ReviewDatabase.getInstance(application).reviewDao
+                val review = reviewsDao.getAllReviews(product.id)
+                try {
+                    if (review != null && review != "") {
+                        val reviewList = TypeConvertor().stringToObject(review)
+                        val adapter = ReviewAdapter(reviewList!!)
+                        recyclerReviews.adapter = adapter
+                    } else {
+                        val reviewList = ArrayList<String>()
+                        val adapter = ReviewAdapter(reviewList)
+                        recyclerReviews.adapter = adapter
+                    }
+                }catch(e : Exception){
+                    Log.d("ReviewError", e.message)
+                }
     }
 }
 

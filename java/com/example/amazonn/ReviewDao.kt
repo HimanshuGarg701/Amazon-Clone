@@ -1,10 +1,8 @@
+
 package com.example.amazonn
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface ReviewDao {
@@ -15,13 +13,13 @@ interface ReviewDao {
     @Delete
     fun delete(review : Review)
 
-    @Query("SELECT * FROM review")
-    fun getAllReviews() : LiveData<List<Review>>
+    @Update
+    fun updateReview(review : Review)
+
+    @Query("SELECT review_data FROM review WHERE productId =:key")
+    fun getAllReviews(key : Int) : String?
 
     @Query("DELETE FROM review")
     fun deleteAll()
-
-    @Query("Select * FROM review WHERE heading =:key")
-    fun getReview(key : String) : Review?
 
 }

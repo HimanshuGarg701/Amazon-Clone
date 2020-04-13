@@ -3,7 +3,6 @@ package com.example.amazonn
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -13,38 +12,50 @@ import kotlinx.coroutines.*
 class AddReview : AppCompatActivity() {
 
     private val job = Job()
-    private val scope = CoroutineScope(Dispatchers.Main + job)
+    private val uiScope = CoroutineScope(Dispatchers.IO + job)
     private lateinit var binding : ActivityReviewsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_reviews)
 
         val product = intent.getParcelableExtra<Product>("PRODUCT")
         binding.submitReview.setOnClickListener {
-            insertReviewToDatabase(product.id)
+            val heading = binding.reviewHeading.toString()
+            val reviewData = binding.reviewData.toString()
+            val reviewDisplay = "$heading \n $reviewData"
+            val review = Review(product.id, reviewDisplay)
+//            val reviewString = TypeConvertor().objectToString(review)
+//
+            saveReviewToDatabase(product.id, review)
+            val intent = Intent(this, MainActivity::class.java)
+            Toast.makeText(this, "Thank you for the Review", Toast.LENGTH_SHORT).show()
+            startActivity(intent)
 
         }
     }
 
-    private fun insertReviewToDatabase(id : Int){
-        val application = requireNotNull(this).application
-        val reviewHeading = binding.reviewHeading.text.toString()
-        val reviewData = binding.reviewData.text.toString()
-        val review = Review(reviewHeading, reviewData)
-        Log.d("REVIEWID", id.toString())
-        insertData(review, application)
-        Toast.makeText(this, "Review Added", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+    private fun saveReviewToDatabase(id : Int, review : Review){
+        val thisApplication = requireNotNull(this).application
+        uiScope.launch {
+            storeReview(id, review, thisApplication)
+        }
     }
 
-    private fun insertData(review : Review, application : Application){
-        scope.launch {
-            withContext(Dispatchers.IO){
-                Log.d("CheckInsertion", "Check Review ${review.toString()}")
-                val reviewDao = ReviewDatabase.getInstance(application).reviewDao
+    private suspend fun storeReview(id : Int, review : Review, application : Application){
+        withContext(Dispatchers.IO){
+            val reviewDao = ReviewDatabase.getInstance(application).reviewDao
+            val reviews = reviewDao.getAllReviews(id)
+            val reviewData = TypeConvertor().objectToString(review.reviewData!!)
+            if(reviews==null){
+                review.reviewData = reviewData
                 reviewDao.insert(review)
-                Log.d("CheckInsertion", reviewDao.getReview(review.heading).toString())
+            }else{
+                val reviewsList = TypeConvertor().stringToObject(review.reviewData!!)
+                reviewsList?.add(reviewData)
+                val newReviewData = TypeConvertor().listObjectToString(reviewsList!!)
+                review.reviewData = newReviewData
+                reviewDao.updateReview(review)
             }
         }
     }

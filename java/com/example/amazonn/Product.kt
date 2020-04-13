@@ -24,7 +24,10 @@ data class Product(
     val imageURL : String?,
 
     @ColumnInfo(name="product_description")
-    val description:String?
+    val description:String?,
+
+    @ColumnInfo(name="product_reviews")
+    var reviews : String?
     ) : Parcelable
 {
 
@@ -32,6 +35,7 @@ data class Product(
         parcel.readInt(),
         parcel.readString(),
         parcel.readDouble(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
@@ -46,6 +50,7 @@ data class Product(
         parcel.writeString(quantity)
         parcel.writeString(imageURL)
         parcel.writeString(description)
+        parcel.writeString(reviews)
     }
 
     override fun describeContents(): Int {

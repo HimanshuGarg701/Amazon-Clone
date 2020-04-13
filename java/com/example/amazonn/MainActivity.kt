@@ -9,6 +9,7 @@ import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.amazonn.databinding.ActivityMainBinding
+import kotlinx.coroutines.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
@@ -18,7 +19,8 @@ import java.io.InputStream
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    private lateinit var searchView : SearchView
+    private val job = Job()
+    private val uiScope = CoroutineScope(Dispatchers.IO +job)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
@@ -62,8 +64,20 @@ class MainActivity : AppCompatActivity() {
                 val imageUrl = products.getString("imageUrl")
                 val description = products.getString("description")
 
-                val product = Product(id, name, price, quantity, imageUrl, description)
+                val product = Product(id, name, price, quantity, imageUrl, description, "")
+                val application = requireNotNull(this).application
+                uiScope.launch {
+                    withContext(Dispatchers.IO){
+                        val reviewDao = ReviewDatabase.getInstance(application).reviewDao
+                        val reviews = reviewDao.getAllReviews(id)
+                        if(reviews!=null || reviews!=""){
+                            product.reviews = reviews
+                        }
+                        list.add(product)
+                    }
+                }
                 list.add(product)
+
             }
         } catch (e: JSONException) {
             e.printStackTrace()

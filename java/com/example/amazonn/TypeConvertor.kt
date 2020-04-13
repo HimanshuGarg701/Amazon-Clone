@@ -6,19 +6,26 @@ import java.lang.reflect.Type
 
 
 class TypeConvertor {
-    private var gson = Gson()
 
-    fun stringToObject(data : String) : List<Product>?{
+
+    fun stringToObject(data : String) : ArrayList<String>?{
+         val gson = Gson()
         if(data==null){
             return null
         }
 
         val listType: Type =
-            object : TypeToken<List<Product?>?>() {}.type
+            object : TypeToken<ArrayList<String?>?>() {}.type
         return gson.fromJson(data, listType)
     }
 
-    fun objectToString(products : List<Product>) : String{
-        return gson.toJson(products)
+    fun objectToString(review : String) : String{
+        val gson = Gson()
+        return gson.toJson(review)
+    }
+
+    fun listObjectToString(review : ArrayList<String>) : String{
+        val gson = Gson()
+        return gson.toJson(review)
     }
 }
