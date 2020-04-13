@@ -17,4 +17,5 @@
     <string name="add_review">ADD REVIEW</string>
     <string name="total_price">Total Price</string>
     <string name="checkout">CheckOut</string>
+    <string name="search_hint">Search Here</string>
 </resources>

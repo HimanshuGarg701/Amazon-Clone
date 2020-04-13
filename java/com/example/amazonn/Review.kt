@@ -11,8 +11,5 @@ data class Review(
     val heading: String,
 
     @ColumnInfo(name="review_data")
-    val reviewData : String,
-
-    @ColumnInfo(name="product_id")
-    val productId : Int) {
+    val reviewData : String) {
 }

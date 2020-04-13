@@ -3,14 +3,17 @@ package com.example.amazonn
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.amazonn.databinding.ProductAppearanceBinding
 import com.squareup.picasso.Picasso
 
-class ProductListAdapter(private val products : List<Product>) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
+class ProductListAdapter(private var products : List<Product>) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>(), Filterable {
 
+    private var listOfProducts = products
     override fun getItemCount(): Int {
-        return products.size
+        return listOfProducts.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -20,7 +23,7 @@ class ProductListAdapter(private val products : List<Product>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val product = products[position]
+        val product = listOfProducts[position]
         holder.bind(product)
         holder.product = product
     }
@@ -46,4 +49,31 @@ class ProductListAdapter(private val products : List<Product>) : RecyclerView.Ad
              }
          }
     }
+
+    override fun getFilter(): Filter {
+        return object : Filter(){
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val queryString = constraint.toString().toLowerCase()
+
+                val filterResults = Filter.FilterResults()
+                filterResults.values = if(queryString==null || queryString.isEmpty()){
+                    products
+                }else{
+                    products.filter{
+                        it.name?.toLowerCase()!!.contains(queryString)
+                    }
+                }
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                listOfProducts = results?.values as List<Product>
+                notifyDataSetChanged()
+            }
+
+        }
+    }
 }
+
+
+

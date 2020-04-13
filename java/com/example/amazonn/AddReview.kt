@@ -30,7 +30,7 @@ class AddReview : AppCompatActivity() {
         val application = requireNotNull(this).application
         val reviewHeading = binding.reviewHeading.text.toString()
         val reviewData = binding.reviewData.text.toString()
-        val review = Review(reviewHeading, reviewData, id)
+        val review = Review(reviewHeading, reviewData)
         Log.d("REVIEWID", id.toString())
         insertData(review, application)
         Toast.makeText(this, "Review Added", Toast.LENGTH_SHORT).show()
