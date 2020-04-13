@@ -39,7 +39,7 @@ class ProductDescription : AppCompatActivity() {
 
         deleteProductFromDatabase(deleteProduct)
 
-        //loadReviews(product)
+        loadReviews(product)
 
         binding.addReviewButton.setOnClickListener {
             val intent = Intent(this, AddReview::class.java)
@@ -105,22 +105,7 @@ class ProductDescription : AppCompatActivity() {
     }
 
     private fun loadReviews(product : Product){
-        val application = requireNotNull(this).application
-                val reviewsDao = ReviewDatabase.getInstance(application).reviewDao
-                val review = reviewsDao.getAllReviews(product.id)
-                try {
-                    if (review != null && review != "") {
-                        val reviewList = TypeConvertor().stringToObject(review)
-                        val adapter = ReviewAdapter(reviewList!!)
-                        recyclerReviews.adapter = adapter
-                    } else {
-                        val reviewList = ArrayList<String>()
-                        val adapter = ReviewAdapter(reviewList)
-                        recyclerReviews.adapter = adapter
-                    }
-                }catch(e : Exception){
-                    Log.d("ReviewError", e.message)
-                }
+        MainActivity().loadProductReviews(product.id)
     }
 }
 

@@ -3,6 +3,7 @@ package com.example.amazonn
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -25,8 +26,9 @@ class AddReview : AppCompatActivity() {
             val reviewData = binding.reviewData.toString()
             val reviewDisplay = "$heading \n $reviewData"
             val review = Review(product.id, reviewDisplay)
-//            val reviewString = TypeConvertor().objectToString(review)
-//
+            //val reviewString = TypeConvertor().objectToString(review)
+            Log.d("ReviewDataBegin", reviewData.toString())
+            Log.d("ReviewDataSecond", reviewDisplay)
             saveReviewToDatabase(product.id, review)
             val intent = Intent(this, MainActivity::class.java)
             Toast.makeText(this, "Thank you for the Review", Toast.LENGTH_SHORT).show()
@@ -46,10 +48,14 @@ class AddReview : AppCompatActivity() {
         withContext(Dispatchers.IO){
             val reviewDao = ReviewDatabase.getInstance(application).reviewDao
             val reviews = reviewDao.getAllReviews(id)
+            Log.d("ReviewDataInitial" , review.reviewData)
             val reviewData = TypeConvertor().objectToString(review.reviewData!!)
-            if(reviews==null){
+            Log.d("ReviewDataEnd" , review.reviewData)
+            if(reviews==null || reviews.isEmpty()){
                 review.reviewData = reviewData
                 reviewDao.insert(review)
+                Log.d("ReviewData", review.reviewData)
+                Log.d("ReviewData", review.productId.toString())
             }else{
                 val reviewsList = TypeConvertor().stringToObject(review.reviewData!!)
                 reviewsList?.add(reviewData)

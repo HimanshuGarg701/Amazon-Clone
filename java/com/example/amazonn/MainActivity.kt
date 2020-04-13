@@ -8,7 +8,9 @@ import android.view.MenuItem
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.amazonn.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_product_description.*
 import kotlinx.coroutines.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -21,13 +23,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.IO +job)
+    private lateinit var adapter: ProductListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         val products = formulateMap()
-
-        val adapter = ProductListAdapter(products)
+        var productTwo =ArrayList<Product>()
+        productTwo.clear()
+        productTwo.addAll(products)
+        adapter = ProductListAdapter(products, productTwo)
+        binding.recyclerProducts.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         binding.recyclerProducts.adapter = adapter
 
     }
@@ -48,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         return json
     }
 
-    private fun formulateMap() : List<Product>{
+    private fun formulateMap() : ArrayList<Product>{
         val list = arrayListOf<Product>()
         try {
             val obj = JSONObject(loadJSONFromAsset())
@@ -101,6 +107,43 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.shopping_cart, menu)
+        val menuItem = menu?.findItem(R.id.search)
+        val searchView = menuItem!!.actionView as SearchView
+        searchView.setOnQueryTextListener( object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+
+        })
         return super.onCreateOptionsMenu(menu)
+    }
+
+    fun loadProductReviews(id : Int){
+        try {
+            val application = requireNotNull(this).application
+
+                    val reviewsDao = ReviewDatabase.getInstance(application).reviewDao
+                    val review = reviewsDao.getAllReviews(id)
+                    try {
+                        if (review != null && review.isNotEmpty()) {
+                            val reviewList = TypeConvertor().stringToObject(review)
+                            val adapter = ReviewAdapter(reviewList!!)
+                            recyclerReviews.adapter = adapter
+                        } else {
+                            val reviewList = ArrayList<String>()
+                            val adapter = ReviewAdapter(reviewList)
+                            recyclerReviews.adapter = adapter
+                        }
+                    } catch (e: Exception) {
+                        Log.d("ReviewError", e.message)
+                    }
+        }catch(e : Exception){
+            Log.d("ErrorReviewing", e.message)
+        }
     }
 }

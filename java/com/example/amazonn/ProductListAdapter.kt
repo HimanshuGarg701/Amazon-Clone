@@ -1,6 +1,7 @@
 package com.example.amazonn
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -9,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.amazonn.databinding.ProductAppearanceBinding
 import com.squareup.picasso.Picasso
 
-class ProductListAdapter(private var products : List<Product>) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>(), Filterable {
+class ProductListAdapter(private var products : ArrayList<Product>, private var listOfProducts:ArrayList<Product>) :
+                                    RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>(), Filterable {
 
-    private var listOfProducts = products
+
     override fun getItemCount(): Int {
-        return listOfProducts.size
+        return products.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -23,7 +25,7 @@ class ProductListAdapter(private var products : List<Product>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val product = listOfProducts[position]
+        val product = products[position]
         holder.bind(product)
         holder.product = product
     }
@@ -51,24 +53,37 @@ class ProductListAdapter(private var products : List<Product>) : RecyclerView.Ad
     }
 
     override fun getFilter(): Filter {
-        return object : Filter(){
+        return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                val queryString = constraint.toString().toLowerCase()
+                Log.d("AddedProductToHint", constraint.toString())
+                val filterList = ArrayList<Product>()
+                if (constraint.toString()=="" || constraint == null || constraint.length==0) {
+                    Log.d("ListOfCons", constraint.toString())
+                    filterList.addAll(listOfProducts)
+                } else {
+                    for (product in listOfProducts) {
+                        if (product.name?.toLowerCase()!!
+                                .contains(constraint.toString().toLowerCase())
+                        ) {
 
-                val filterResults = Filter.FilterResults()
-                filterResults.values = if(queryString==null || queryString.isEmpty()){
-                    products
-                }else{
-                    products.filter{
-                        it.name?.toLowerCase()!!.contains(queryString)
+                            filterList.add(product)
+                        }
                     }
                 }
-                return filterResults
+                val filteredResults = FilterResults()
+                filteredResults.values = filterList
+                return filteredResults
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                listOfProducts = results?.values as List<Product>
-                notifyDataSetChanged()
+                products.clear()
+                if (results?.values != null && results.values!="") {
+                    products.addAll(results.values as Collection<Product>)
+                    Log.d("ListOfProducts", products.toString())
+                    notifyDataSetChanged()
+                }else{
+                    Log.d("ListOfAfter", products.toString())
+                }
             }
 
         }
