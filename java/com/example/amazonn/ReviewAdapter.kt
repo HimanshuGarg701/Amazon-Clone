@@ -1,4 +1,4 @@
-package com.example.amazonn.Reviews
+package com.example.amazonn
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

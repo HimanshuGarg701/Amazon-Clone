@@ -1,4 +1,4 @@
-package com.example.amazonn.AmazonnProducts
+package com.example.amazonn
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,15 +9,11 @@ import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.example.amazonn.R
-import com.example.amazonn.Reviews.ReviewAdapter
-import com.example.amazonn.ShoppingCartProducts.ShoppingCart
 import com.example.amazonn.databinding.ActivityMainBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.activity_product_description.*
 import kotlinx.coroutines.*
 
 

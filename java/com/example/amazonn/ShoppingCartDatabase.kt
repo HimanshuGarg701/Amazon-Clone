@@ -1,11 +1,10 @@
-package com.example.amazonn.ShoppingCartProducts
+package com.example.amazonn
 
 import android.content.Context
 import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.amazonn.AmazonnProducts.Product
 
 @Database(entities = [Product::class], version = 27, exportSchema = false)
 abstract class ShoppingCartDatabase : RoomDatabase() {

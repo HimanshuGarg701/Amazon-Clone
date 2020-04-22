@@ -6,13 +6,13 @@
     <data>
         <variable
             name="productDescription"
-            type="com.example.amazonn.AmazonnProducts.ProductDescription" />
+            type="com.example.amazonn.ProductDescription" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".AmazonnProducts.ProductDescription">
+        tools:context=".ProductDescription">
 
         <ImageView
             android:id="@+id/productDescriptionImage"

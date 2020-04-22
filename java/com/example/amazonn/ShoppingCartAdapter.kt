@@ -1,13 +1,10 @@
-package com.example.amazonn.ShoppingCartProducts
+package com.example.amazonn
 
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.amazonn.AmazonnProducts.Product
-import com.example.amazonn.AmazonnProducts.ProductDescription
-import com.example.amazonn.R
 import com.example.amazonn.databinding.ShoppingCartItemBinding
 import com.squareup.picasso.Picasso
 import java.lang.Exception

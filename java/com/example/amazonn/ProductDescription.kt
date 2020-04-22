@@ -1,4 +1,4 @@
-package com.example.amazonn.AmazonnProducts
+package com.example.amazonn
 
 
 import android.app.Application
@@ -8,12 +8,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.amazonn.R
-import com.example.amazonn.Reviews.AddReview
-import com.example.amazonn.Reviews.Review
-import com.example.amazonn.Reviews.ReviewAdapter
-import com.example.amazonn.ShoppingCartProducts.CartProductDao
-import com.example.amazonn.ShoppingCartProducts.ShoppingCartDatabase
 import com.example.amazonn.databinding.ActivityProductDescriptionBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -123,11 +117,16 @@ class ProductDescription : AppCompatActivity() {
             }
 
             override fun onDataChange(reviews: DataSnapshot) {
-                reviews.children.forEach {
-                    if(product.id == it.getValue(Review::class.java)!!.productId)
-                        reviewsList.add(it.getValue(Review::class.java)!!)
+                try {
+                    reviews.children.forEach {
+                        if (product.id == it.getValue(Review::class.java)!!.productId)
+                            reviewsList.add(it.getValue(Review::class.java)!!)
+                    }
+                    recyclerReviews.adapter =
+                        ReviewAdapter(reviewsList)
+                }catch(e : Exception){
+                    Log.d("ReviewFail", e.message)
                 }
-                recyclerReviews.adapter = ReviewAdapter(reviewsList)
             }
         })
     }

@@ -1,4 +1,4 @@
-package com.example.amazonn.AmazonnProducts
+package com.example.amazonn
 
 import android.content.Intent
 import android.util.Log
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.example.amazonn.R
 import com.example.amazonn.databinding.ProductAppearanceBinding
 import com.squareup.picasso.Picasso
 

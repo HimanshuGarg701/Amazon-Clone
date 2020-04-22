@@ -1,4 +1,4 @@
-package com.example.amazonn.ShoppingCartProducts
+package com.example.amazonn
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,8 +6,6 @@ import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.amazonn.*
-import com.example.amazonn.AmazonnProducts.Product
 import com.example.amazonn.databinding.ActivityShoppingCartBinding
 import kotlinx.android.synthetic.main.activity_shopping_cart.*
 

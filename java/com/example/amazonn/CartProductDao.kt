@@ -1,11 +1,11 @@
-package com.example.amazonn.ShoppingCartProducts
+package com.example.amazonn
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.amazonn.AmazonnProducts.Product
+import com.example.amazonn.Product
 
 @Dao
 interface CartProductDao {

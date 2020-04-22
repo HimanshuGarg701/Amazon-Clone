@@ -1,4 +1,4 @@
-package com.example.amazonn.ShoppingCartProducts
+package com.example.amazonn
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
