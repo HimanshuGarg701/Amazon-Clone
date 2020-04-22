@@ -11,11 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShoppingCartAdapter" />
-        <activity android:name=".AddReview" />
-        <activity android:name=".ShoppingCart" />
-        <activity android:name=".ProductDescription" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ShoppingCartProducts.ShoppingCartAdapter" />
+        <activity android:name=".Reviews.AddReview" />
+        <activity android:name=".ShoppingCartProducts.ShoppingCart" />
+        <activity android:name=".AmazonnProducts.ProductDescription" />
+        <activity android:name=".AmazonnProducts.MainActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

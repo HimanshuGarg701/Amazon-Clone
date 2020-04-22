@@ -1,4 +1,4 @@
-package com.example.amazonn
+package com.example.amazonn.AmazonnProducts
 
 import android.os.Parcel
 import android.os.Parcelable

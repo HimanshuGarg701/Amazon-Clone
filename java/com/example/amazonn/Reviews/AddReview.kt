@@ -1,4 +1,4 @@
-package com.example.amazonn
+package com.example.amazonn.Reviews
 
 import android.app.Application
 import android.content.Intent
@@ -7,6 +7,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.amazonn.*
+import com.example.amazonn.AmazonnProducts.MainActivity
+import com.example.amazonn.AmazonnProducts.Product
 import com.example.amazonn.databinding.ActivityReviewsBinding
 import kotlinx.coroutines.*
 
@@ -18,14 +21,17 @@ class AddReview : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_reviews)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_reviews
+        )
 
         val product = intent.getParcelableExtra<Product>("PRODUCT")
         binding.submitReview.setOnClickListener {
             val heading = binding.reviewHeading.toString()
             val reviewData = binding.reviewData.toString()
             val reviewDisplay = "$heading \n $reviewData"
-            val review = Review(product.id, reviewDisplay)
+            val review =
+                Review(product.id, reviewDisplay)
             //val reviewString = TypeConvertor().objectToString(review)
             Log.d("ReviewDataBegin", reviewData.toString())
             Log.d("ReviewDataSecond", reviewDisplay)
@@ -46,7 +52,9 @@ class AddReview : AppCompatActivity() {
 
     private suspend fun storeReview(id : Int, review : Review, application : Application){
         withContext(Dispatchers.IO){
-            val reviewDao = ReviewDatabase.getInstance(application).reviewDao
+            val reviewDao = ReviewDatabase.getInstance(
+                application
+            ).reviewDao
             val reviews = reviewDao.getAllReviews(id)
             Log.d("ReviewDataInitial" , review.reviewData)
             val reviewData = TypeConvertor().objectToString(review.reviewData!!)

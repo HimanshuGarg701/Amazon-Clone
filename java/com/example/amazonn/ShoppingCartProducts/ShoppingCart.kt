@@ -1,15 +1,15 @@
-package com.example.amazonn
+package com.example.amazonn.ShoppingCartProducts
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.example.amazonn.*
+import com.example.amazonn.AmazonnProducts.Product
 import com.example.amazonn.databinding.ActivityShoppingCartBinding
 import kotlinx.android.synthetic.main.activity_shopping_cart.*
-import kotlinx.coroutines.*
 
 class ShoppingCart : AppCompatActivity() {
 
@@ -20,7 +20,9 @@ class ShoppingCart : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_cart)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_shopping_cart)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_shopping_cart
+        )
         binding.lifecycleOwner = this
 
 
@@ -31,17 +33,27 @@ class ShoppingCart : AppCompatActivity() {
      private fun loadData(){
         val application = requireNotNull(this).application
         try {
-            cartDao = ShoppingCartDatabase.getInstance(application).cartProductDao
+            cartDao = ShoppingCartDatabase.getInstance(
+                application
+            ).cartProductDao
         }catch(e : Exception){
             Log.d("CreatingDao", e.message!!)
         }
 
-        val cartViewModelFactory = CartViewModelFactory(cartDao, application)
-        val cartViewModel = ViewModelProviders.of(this, cartViewModelFactory).get(ShoppingCartViewModel::class.java)
+        val cartViewModelFactory =
+            CartViewModelFactory(
+                cartDao,
+                application
+            )
+        val cartViewModel = ViewModelProviders.of(this, cartViewModelFactory).get(
+            ShoppingCartViewModel::class.java)
 
         cartViewModel.products.observe(this, Observer {
             products = it as ArrayList<Product>
-            val adapter = ShoppingCartAdapter(products)
+            val adapter =
+                ShoppingCartAdapter(
+                    products
+                )
             recyclerShoppingCart.adapter = adapter
         })
 

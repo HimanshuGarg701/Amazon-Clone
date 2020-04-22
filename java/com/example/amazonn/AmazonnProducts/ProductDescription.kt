@@ -1,4 +1,4 @@
-package com.example.amazonn
+package com.example.amazonn.AmazonnProducts
 
 
 import android.app.Application
@@ -8,11 +8,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import com.example.amazonn.R
+import com.example.amazonn.Reviews.AddReview
+import com.example.amazonn.ShoppingCartProducts.CartProductDao
+import com.example.amazonn.ShoppingCartProducts.ShoppingCartDatabase
 import com.example.amazonn.databinding.ActivityProductDescriptionBinding
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_product_description.*
 import kotlinx.coroutines.*
 
 
@@ -25,7 +26,9 @@ class ProductDescription : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_product_description)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_product_description
+        )
 
         val product = intent.getParcelableExtra<Product>("PRODUCT")
         setValues(product!!)
@@ -71,17 +74,17 @@ class ProductDescription : AppCompatActivity() {
         }
     }
 
-    private suspend fun insert(thisApplication : Application, product:Product){
+    private suspend fun insert(thisApplication : Application, product: Product){
         withContext(Dispatchers.IO) {
             Log.d("Leaving","Going to get the instance")
             cartDao = ShoppingCartDatabase.getInstance(thisApplication).cartProductDao
             Log.d("Leaving", "Coming back with the instance")
             try{
-            if(cartDao.getProduct(product.id)!=null){
-                // Do Nothing
-            }else {
-                cartDao.insert(product)
-            }
+                if(cartDao.getProduct(product.id)!=null){
+                    // Do Nothing
+                }else {
+                    cartDao.insert(product)
+                }
             }catch(e : Exception){
                 Log.d("BuyError", e.message)
             }

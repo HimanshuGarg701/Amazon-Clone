@@ -1,8 +1,8 @@
-package com.example.amazonn
+package com.example.amazonn.ShoppingCartProducts
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
+import com.example.amazonn.ShoppingCartProducts.CartProductDao
 
 class ShoppingCartViewModel(
     private val cartDao: CartProductDao,

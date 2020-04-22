@@ -6,7 +6,7 @@
     <data>
         <variable
             name="review"
-            type="com.example.amazonn.Review" />
+            type="com.example.amazonn.Reviews.Review" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

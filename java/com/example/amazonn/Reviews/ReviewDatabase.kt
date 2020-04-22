@@ -1,4 +1,4 @@
-package com.example.amazonn
+package com.example.amazonn.Reviews
 
 import android.content.Context
 import androidx.room.Database
@@ -13,9 +13,10 @@ abstract class ReviewDatabase : RoomDatabase(){
         @Volatile
         private var INSTANCE : ReviewDatabase? = null
 
-        fun getInstance(context : Context) : ReviewDatabase{
+        fun getInstance(context : Context) : ReviewDatabase {
             synchronized(this){
-                var instance = INSTANCE
+                var instance =
+                    INSTANCE
                 if(instance==null){
                     instance = Room.databaseBuilder(context.applicationContext,
                         ReviewDatabase::class.java,

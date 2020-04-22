@@ -1,4 +1,4 @@
-package com.example.amazonn
+package com.example.amazonn.AmazonnProducts
 
 import androidx.lifecycle.ViewModel
 

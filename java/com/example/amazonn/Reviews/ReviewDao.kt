@@ -1,8 +1,8 @@
 
-package com.example.amazonn
+package com.example.amazonn.Reviews
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.amazonn.Reviews.Review
 
 @Dao
 interface ReviewDao {

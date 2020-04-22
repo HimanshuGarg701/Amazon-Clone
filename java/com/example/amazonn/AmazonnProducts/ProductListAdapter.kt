@@ -1,4 +1,4 @@
-package com.example.amazonn
+package com.example.amazonn.AmazonnProducts
 
 import android.content.Intent
 import android.util.Log
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import com.example.amazonn.R
 import com.example.amazonn.databinding.ProductAppearanceBinding
 import com.squareup.picasso.Picasso
 
@@ -21,7 +22,9 @@ class ProductListAdapter(private var products : ArrayList<Product>, private var 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ProductAppearanceBinding.inflate(layoutInflater, parent,false)
-        return ProductViewHolder(binding)
+        return ProductViewHolder(
+            binding
+        )
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {

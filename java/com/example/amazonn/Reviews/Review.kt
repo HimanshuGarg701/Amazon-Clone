@@ -1,4 +1,4 @@
-package com.example.amazonn
+package com.example.amazonn.Reviews
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -14,6 +14,8 @@ data class Review(
 
     @ColumnInfo(name="review_data")
     var reviewData : String?) : Parcelable{
+
+    constructor() : this(0, "")
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),

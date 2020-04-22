@@ -1,4 +1,4 @@
-package com.example.amazonn
+package com.example.amazonn.AmazonnProducts
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,11 @@ import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.example.amazonn.R
+import com.example.amazonn.Reviews.ReviewAdapter
+import com.example.amazonn.Reviews.ReviewDatabase
+import com.example.amazonn.Reviews.TypeConvertor
+import com.example.amazonn.ShoppingCartProducts.ShoppingCart
 import com.example.amazonn.databinding.ActivityMainBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,10 +21,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_product_description.*
 import kotlinx.coroutines.*
-import org.json.JSONException
-import org.json.JSONObject
-import java.io.IOException
-import java.io.InputStream
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +31,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ProductListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_main
+        )
 
         fetchProducts()
         binding.recyclerProducts.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
@@ -63,7 +66,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 productClone.clear()
                 productClone.addAll(productsList)
-                binding.recyclerProducts.adapter = ProductListAdapter(productsList, productClone)
+                binding.recyclerProducts.adapter =
+                    ProductListAdapter(
+                        productsList,
+                        productClone
+                    )
             }
 
         })
@@ -172,12 +179,19 @@ class MainActivity : AppCompatActivity() {
                     val review = reviewsDao.getAllReviews(id)
                     try {
                         if (review != null && review.isNotEmpty()) {
-                            val reviewList = TypeConvertor().stringToObject(review)
-                            val adapter = ReviewAdapter(reviewList!!)
+                            val reviewList = TypeConvertor()
+                                .stringToObject(review)
+                            val adapter =
+                                ReviewAdapter(
+                                    reviewList!!
+                                )
                             recyclerReviews.adapter = adapter
                         } else {
                             val reviewList = ArrayList<String>()
-                            val adapter = ReviewAdapter(reviewList)
+                            val adapter =
+                                ReviewAdapter(
+                                    reviewList
+                                )
                             recyclerReviews.adapter = adapter
                         }
                     } catch (e: Exception) {

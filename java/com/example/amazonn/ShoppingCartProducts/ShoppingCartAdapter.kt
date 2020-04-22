@@ -1,10 +1,13 @@
-package com.example.amazonn
+package com.example.amazonn.ShoppingCartProducts
 
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.amazonn.AmazonnProducts.Product
+import com.example.amazonn.AmazonnProducts.ProductDescription
+import com.example.amazonn.R
 import com.example.amazonn.databinding.ShoppingCartItemBinding
 import com.squareup.picasso.Picasso
 import java.lang.Exception
@@ -14,7 +17,9 @@ class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.A
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingCartViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ShoppingCartItemBinding.inflate(layoutInflater, parent, false)
-        return ShoppingCartViewHolder(binding)
+        return ShoppingCartViewHolder(
+            binding
+        )
     }
 
     override fun getItemCount(): Int {

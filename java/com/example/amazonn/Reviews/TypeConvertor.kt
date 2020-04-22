@@ -1,4 +1,4 @@
-package com.example.amazonn
+package com.example.amazonn.Reviews
 
 import android.util.Log
 import com.google.gson.Gson
