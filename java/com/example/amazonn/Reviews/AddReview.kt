@@ -29,48 +29,9 @@ class AddReview : AppCompatActivity() {
         binding.submitReview.setOnClickListener {
             val heading = binding.reviewHeading.toString()
             val reviewData = binding.reviewData.toString()
-            val reviewDisplay = "$heading \n $reviewData"
-            val review =
-                Review(product.id, reviewDisplay)
-            //val reviewString = TypeConvertor().objectToString(review)
-            Log.d("ReviewDataBegin", reviewData.toString())
-            Log.d("ReviewDataSecond", reviewDisplay)
-            saveReviewToDatabase(product.id, review)
-            val intent = Intent(this, MainActivity::class.java)
-            Toast.makeText(this, "Thank you for the Review", Toast.LENGTH_SHORT).show()
-            startActivity(intent)
 
         }
     }
 
-    private fun saveReviewToDatabase(id : Int, review : Review){
-        val thisApplication = requireNotNull(this).application
-        uiScope.launch {
-            storeReview(id, review, thisApplication)
-        }
-    }
 
-    private suspend fun storeReview(id : Int, review : Review, application : Application){
-        withContext(Dispatchers.IO){
-            val reviewDao = ReviewDatabase.getInstance(
-                application
-            ).reviewDao
-            val reviews = reviewDao.getAllReviews(id)
-            Log.d("ReviewDataInitial" , review.reviewData)
-            val reviewData = TypeConvertor().objectToString(review.reviewData!!)
-            Log.d("ReviewDataEnd" , review.reviewData)
-            if(reviews==null || reviews.isEmpty()){
-                review.reviewData = reviewData
-                reviewDao.insert(review)
-                Log.d("ReviewData", review.reviewData)
-                Log.d("ReviewData", review.productId.toString())
-            }else{
-                val reviewsList = TypeConvertor().stringToObject(review.reviewData!!)
-                reviewsList?.add(reviewData)
-                val newReviewData = TypeConvertor().listObjectToString(reviewsList!!)
-                review.reviewData = newReviewData
-                reviewDao.updateReview(review)
-            }
-        }
-    }
 }

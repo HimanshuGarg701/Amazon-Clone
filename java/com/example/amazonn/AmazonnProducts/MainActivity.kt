@@ -11,8 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.amazonn.R
 import com.example.amazonn.Reviews.ReviewAdapter
-import com.example.amazonn.Reviews.ReviewDatabase
-import com.example.amazonn.Reviews.TypeConvertor
 import com.example.amazonn.ShoppingCartProducts.ShoppingCart
 import com.example.amazonn.databinding.ActivityMainBinding
 import com.google.firebase.database.DataSnapshot

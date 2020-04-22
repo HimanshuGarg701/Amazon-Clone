@@ -2,17 +2,10 @@ package com.example.amazonn.Reviews
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 
-@Entity(tableName = "review")
 data class Review(
-
-    @PrimaryKey
     val productId : Int,
 
-    @ColumnInfo(name="review_data")
     var reviewData : String?) : Parcelable{
 
     constructor() : this(0, "")
