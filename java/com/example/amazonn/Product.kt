@@ -31,6 +31,8 @@ data class Product(
     ) : Parcelable
 {
 
+    constructor() : this(0, "", 0.0, "", "", "", "")
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
