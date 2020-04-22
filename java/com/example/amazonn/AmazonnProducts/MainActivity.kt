@@ -168,35 +168,4 @@ class MainActivity : AppCompatActivity() {
         })
         return super.onCreateOptionsMenu(menu)
     }
-
-    fun loadProductReviews(id : Int){
-        try {
-            val application = requireNotNull(this).application
-
-                    val reviewsDao = ReviewDatabase.getInstance(application).reviewDao
-                    val review = reviewsDao.getAllReviews(id)
-                    try {
-                        if (review != null && review.isNotEmpty()) {
-                            val reviewList = TypeConvertor()
-                                .stringToObject(review)
-                            val adapter =
-                                ReviewAdapter(
-                                    reviewList!!
-                                )
-                            recyclerReviews.adapter = adapter
-                        } else {
-                            val reviewList = ArrayList<String>()
-                            val adapter =
-                                ReviewAdapter(
-                                    reviewList
-                                )
-                            recyclerReviews.adapter = adapter
-                        }
-                    } catch (e: Exception) {
-                        Log.d("ReviewError", e.message)
-                    }
-        }catch(e : Exception){
-            Log.d("ErrorReviewing", e.message)
-        }
-    }
 }

@@ -10,10 +10,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.amazonn.R
 import com.example.amazonn.Reviews.AddReview
+import com.example.amazonn.Reviews.Review
+import com.example.amazonn.Reviews.ReviewAdapter
 import com.example.amazonn.ShoppingCartProducts.CartProductDao
 import com.example.amazonn.ShoppingCartProducts.ShoppingCartDatabase
 import com.example.amazonn.databinding.ActivityProductDescriptionBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_product_description.*
 import kotlinx.coroutines.*
 
 
@@ -108,7 +115,21 @@ class ProductDescription : AppCompatActivity() {
     }
 
     private fun loadReviews(product : Product){
-        MainActivity().loadProductReviews(product.id)
+        val ref = FirebaseDatabase.getInstance().getReference("/reviews")
+        val reviewsList = ArrayList<Review>()
+        ref.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(reviews: DataSnapshot) {
+                reviews.children.forEach {
+                    if(product.id == it.getValue(Review::class.java)!!.productId)
+                        reviewsList.add(it.getValue(Review::class.java)!!)
+                }
+                recyclerReviews.adapter = ReviewAdapter(reviewsList)
+            }
+        })
     }
 }
 

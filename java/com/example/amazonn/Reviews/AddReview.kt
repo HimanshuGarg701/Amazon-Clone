@@ -11,7 +11,9 @@ import com.example.amazonn.*
 import com.example.amazonn.AmazonnProducts.MainActivity
 import com.example.amazonn.AmazonnProducts.Product
 import com.example.amazonn.databinding.ActivityReviewsBinding
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.*
+import java.util.*
 
 class AddReview : AppCompatActivity() {
 
@@ -29,6 +31,19 @@ class AddReview : AppCompatActivity() {
         binding.submitReview.setOnClickListener {
             val heading = binding.reviewHeading.toString()
             val reviewData = binding.reviewData.toString()
+            val reviewId = UUID.randomUUID().toString()
+
+            val review = Review(product.id, reviewId, heading, reviewData)
+
+            val ref = FirebaseDatabase.getInstance().getReference("/reviews")
+
+            ref.setValue(review)
+                .addOnSuccessListener {
+                    Log.d("ReviewDatabase", "Successfully added review to database")
+                }
+                .addOnFailureListener {
+                    Log.d("ReviewDatabase", "Failed to add review to database")
+                }
 
         }
     }
