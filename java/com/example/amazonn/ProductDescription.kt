@@ -119,8 +119,11 @@ class ProductDescription : AppCompatActivity() {
             override fun onDataChange(reviews: DataSnapshot) {
                 try {
                     reviews.children.forEach {
-                        if (product.id == it.getValue(Review::class.java)!!.productId)
+                        if (product.id == it.getValue(Review::class.java)!!.productId) {
                             reviewsList.add(it.getValue(Review::class.java)!!)
+                            Log.d("ReviewPass", "Successfully added review")
+                        }
+                        Log.d("ReviewPass","${it.getValue(Review::class.java).toString()}")
                     }
                     recyclerReviews.adapter =
                         ReviewAdapter(reviewsList)
