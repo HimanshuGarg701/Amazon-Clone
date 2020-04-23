@@ -35,7 +35,7 @@ class AddReview : AppCompatActivity() {
                 reviewData
             )
 
-            val ref = FirebaseDatabase.getInstance().getReference("/reviews/reviewId").push()
+            val ref = FirebaseDatabase.getInstance().getReference("/reviews/$reviewId")
 
             ref.setValue(review)
                 .addOnSuccessListener {

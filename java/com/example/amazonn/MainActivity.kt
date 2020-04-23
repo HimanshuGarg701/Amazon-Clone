@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.IO +job)
-    private lateinit var adapter: ProductListAdapter
+    private var adapter: ProductListAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,
@@ -60,11 +60,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 productClone.clear()
                 productClone.addAll(productsList)
-                binding.recyclerProducts.adapter =
-                    ProductListAdapter(
-                        productsList,
-                        productClone
-                    )
+                adapter = ProductListAdapter(productsList, productClone)
+                binding.recyclerProducts.adapter = adapter
             }
 
         })
@@ -157,7 +154,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.filter.filter(newText)
+                try {
+                    if(adapter!=null)
+                        adapter!!.filter.filter(newText)
+                }catch(e : Exception){
+                    Log.d("SearchFail", e.message.toString())
+                }
                 return false
             }
 

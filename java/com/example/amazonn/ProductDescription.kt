@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.amazonn.databinding.ActivityProductDescriptionBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -33,7 +34,7 @@ class ProductDescription : AppCompatActivity() {
 
         val product = intent.getParcelableExtra<Product>("PRODUCT")
         setValues(product!!)
-
+        supportActionBar!!.title = product.name
         val deleteProduct = intent.getParcelableExtra<Product>("DELETE_PRODUCT")
 
         binding.buyButton.setOnClickListener {
@@ -124,9 +125,11 @@ class ProductDescription : AppCompatActivity() {
                             Log.d("ReviewPass", "Successfully added review")
                         }
                         Log.d("ReviewPass","${it.getValue(Review::class.java).toString()}")
+                        Log.d("ReviewPass", reviews.toString())
                     }
-                    recyclerReviews.adapter =
-                        ReviewAdapter(reviewsList)
+                    binding.recyclerReviews.adapter = ReviewAdapter(reviewsList)
+
+                    binding.recyclerReviews.addItemDecoration(DividerItemDecoration(binding.root.context, DividerItemDecoration.VERTICAL))
                 }catch(e : Exception){
                     Log.d("ReviewFail", e.message)
                 }
