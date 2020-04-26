@@ -10,6 +10,9 @@ import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.*
 import java.util.*
 
+
+// Need to change the UI for Adding review
+// Can add Material design
 class AddReview : AppCompatActivity() {
 
     private val job = Job()

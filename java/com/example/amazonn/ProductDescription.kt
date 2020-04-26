@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product_description.*
 import kotlinx.coroutines.*
 
-
+//Need to add/change the UI for the app
 class ProductDescription : AppCompatActivity() {
 
     private lateinit var binding : ActivityProductDescriptionBinding
