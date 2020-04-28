@@ -1,6 +1,5 @@
 package com.example.amazonn
 
-
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
@@ -15,7 +14,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_product_description.*
 import kotlinx.coroutines.*
 
 //Need to add/change the UI for the app
@@ -137,6 +135,8 @@ class ProductDescription : AppCompatActivity() {
         })
     }
 }
+
+
 
 
 
