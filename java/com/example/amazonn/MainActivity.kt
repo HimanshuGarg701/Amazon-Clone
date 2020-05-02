@@ -60,6 +60,44 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        try{
+            when(item.itemId){
+                R.id.shoppingCart ->{
+                    val intent = Intent(this, ShoppingCart::class.java)
+                    startActivity(intent)
+                }
+            }
+        }catch(e : Exception){
+            Log.d("FailedToLoadMenu", e.message)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.shopping_cart, menu)
+        val menuItem = menu?.findItem(R.id.search)
+        val searchView = menuItem!!.actionView as SearchView
+        searchView.setOnQueryTextListener( object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                try {
+                    if(adapter!=null)
+                        adapter!!.filter.filter(newText)
+                }catch(e : Exception){
+                    Log.d("SearchFail", e.message.toString())
+                }
+                return false
+            }
+
+        })
+        return super.onCreateOptionsMenu(menu)
+    }
+}
+
 //    private fun loadJSONFromAsset(): String {
 //        val json: String
 //        json = try {
@@ -122,41 +160,3 @@ class MainActivity : AppCompatActivity() {
 //        }
 //        return list
 //    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        try{
-            when(item.itemId){
-                R.id.shoppingCart ->{
-                    val intent = Intent(this, ShoppingCart::class.java)
-                    startActivity(intent)
-                }
-            }
-        }catch(e : Exception){
-            Log.d("FailedToLoadMenu", e.message)
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.shopping_cart, menu)
-        val menuItem = menu?.findItem(R.id.search)
-        val searchView = menuItem!!.actionView as SearchView
-        searchView.setOnQueryTextListener( object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                try {
-                    if(adapter!=null)
-                        adapter!!.filter.filter(newText)
-                }catch(e : Exception){
-                    Log.d("SearchFail", e.message.toString())
-                }
-                return false
-            }
-
-        })
-        return super.onCreateOptionsMenu(menu)
-    }
-}
