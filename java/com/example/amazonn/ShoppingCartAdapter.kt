@@ -20,7 +20,6 @@ class ShoppingCartAdapter(private val products : List<Product>) : RecyclerView.A
     }
 
     override fun getItemCount(): Int {
-        Log.d("SizeCheck", products.size.toString())
         return products.size
     }
 
