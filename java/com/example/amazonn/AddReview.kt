@@ -15,8 +15,6 @@ import java.util.*
 // Can add Material design
 class AddReview : AppCompatActivity() {
 
-    private val job = Job()
-    private val uiScope = CoroutineScope(Dispatchers.IO + job)
     private lateinit var binding : ActivityReviewsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
