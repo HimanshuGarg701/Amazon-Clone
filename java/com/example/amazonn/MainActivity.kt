@@ -31,12 +31,6 @@ class MainActivity : AppCompatActivity() {
 
         fetchProducts()
         binding.recyclerProducts.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        //val products = formulateMap()
-        //var productTwo =ArrayList<Product>()
-        //productTwo.clear()
-        //productTwo.addAll(products)
-        //adapter = ProductListAdapter(products, productTwo)
-        //binding.recyclerProducts.adapter = adapter
 
     }
 
