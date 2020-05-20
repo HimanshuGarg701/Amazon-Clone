@@ -16,7 +16,6 @@ import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
 
-//Need to add/change the UI for the app
 class ProductDescription : AppCompatActivity() {
 
     private lateinit var binding : ActivityProductDescriptionBinding
@@ -83,9 +82,7 @@ class ProductDescription : AppCompatActivity() {
 
     private suspend fun insert(thisApplication : Application, product: Product){
         withContext(Dispatchers.IO) {
-            Log.d("Leaving","Going to get the instance")
             cartDao = ShoppingCartDatabase.getInstance(thisApplication).cartProductDao
-            Log.d("Leaving", "Coming back with the instance")
             try{
                 if(cartDao.getProduct(product.id)!=null){
                     // Do Nothing
@@ -127,10 +124,7 @@ class ProductDescription : AppCompatActivity() {
                     reviews.children.forEach {
                         if (product.id == it.getValue(Review::class.java)!!.productId) {
                             reviewsList.add(it.getValue(Review::class.java)!!)
-                            Log.d("ReviewPass", "Successfully added review")
                         }
-                        Log.d("ReviewPass","${it.getValue(Review::class.java).toString()}")
-                        Log.d("ReviewPass", reviews.toString())
                     }
                     binding.recyclerReviews.adapter = ReviewAdapter(reviewsList)
 
