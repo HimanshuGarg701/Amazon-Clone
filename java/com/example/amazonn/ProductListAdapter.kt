@@ -57,10 +57,8 @@ class ProductListAdapter(private var products : ArrayList<Product>, private var 
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                Log.d("AddedProductToHint", constraint.toString())
                 val filterList = ArrayList<Product>()
                 if (constraint.toString()=="" || constraint == null || constraint.length==0) {
-                    Log.d("ListOfCons", constraint.toString())
                     filterList.addAll(listOfProducts)
                 } else {
                     for (product in listOfProducts) {
@@ -81,13 +79,9 @@ class ProductListAdapter(private var products : ArrayList<Product>, private var 
                 products.clear()
                 if (results?.values != null && results.values!="") {
                     products.addAll(results.values as Collection<Product>)
-                    Log.d("ListOfProducts", products.toString())
                     notifyDataSetChanged()
-                }else{
-                    Log.d("ListOfAfter", products.toString())
                 }
             }
-
         }
     }
 }
