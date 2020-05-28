@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun fetchProducts(){
+    internal fun fetchProducts(){
         val productsList = ArrayList<Product>()
         val productClone = ArrayList<Product>()
         val ref = FirebaseDatabase.getInstance().getReference("/products")
@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
                 adapter = ProductListAdapter(productsList, productClone)
                 binding.recyclerProducts.adapter = adapter
             }
-
         })
     }
 

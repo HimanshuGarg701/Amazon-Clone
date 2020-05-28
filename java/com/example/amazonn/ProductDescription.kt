@@ -51,7 +51,7 @@ class ProductDescription : AppCompatActivity() {
         }
     }
 
-    private fun setValues(product : Product){
+    internal fun setValues(product : Product) : Boolean{
         binding.productDescriptionName.text = product.name
         binding.productDescriptionPrice.text = "\$ ${product.price}"
         binding.productDescriptionData.text = product.description
@@ -62,15 +62,22 @@ class ProductDescription : AppCompatActivity() {
             else {
                 binding.productDescriptionImage.setImageResource(R.drawable.no_pic_available)
             }
+            return true
         }catch(e:Exception){
             binding.productDescriptionImage.setImageResource(R.drawable.no_pic_available)
+            return false
         }
     }
 
-    private fun addProducttoDatabase(product : Product){
-        val thisApplication = requireNotNull(this).application
-        uiScope.launch {
-            insert(thisApplication, product)
+    private fun addProducttoDatabase(product : Product) : Boolean{
+        try {
+            val thisApplication = requireNotNull(this).application
+            uiScope.launch {
+                insert(thisApplication, product)
+            }
+            return true
+        }catch(e : Exception){
+            return false
         }
     }
 
@@ -107,7 +114,7 @@ class ProductDescription : AppCompatActivity() {
         }
     }
 
-    private fun loadReviews(product : Product){
+     fun loadReviews(product : Product) : Boolean{
         val ref = FirebaseDatabase.getInstance().getReference("/reviews")
         val reviewsList = ArrayList<Review>()
         ref.addListenerForSingleValueEvent(object : ValueEventListener{
@@ -133,6 +140,11 @@ class ProductDescription : AppCompatActivity() {
                 }
             }
         })
+        return true
+    }
+
+    fun addNums(x : Int, y: Int) : Int{
+        return x+y
     }
 }
 
